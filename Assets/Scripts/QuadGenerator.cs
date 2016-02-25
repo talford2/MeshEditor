@@ -21,6 +21,14 @@ public class QuadGenerator : MonoBehaviour
 			new Vector3(1, 0, 1),
 			new Vector3(0, 0, 1)
 		};
+
+		//mesh.vertices = new Vector3[] {
+		//	new Vector3(-0.5f, 0, -0.5f),
+		//	new Vector3(0.5f, 0, -0.5f),
+		//	new Vector3(0.5f, 0, 0.5f),
+		//	new Vector3(-0.5f, 0, 0.5f)
+		//};
+
 		mesh.triangles = new int[] { 2, 1, 0, 3, 2, 0 };
 		mesh.normals = new Vector3[] { Vector3.up, Vector3.up, Vector3.up, Vector3.up };
 
