@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 
+[ExecuteInEditMode]
 public class QuadGenerator : MonoBehaviour
 {
 	public MeshFilter MeshFilter;
-	
+
 	public bool RelativeToWorld = false;
 
 	public float UVScale = 1f;
@@ -20,12 +21,11 @@ public class QuadGenerator : MonoBehaviour
 			new Vector3(1, 0, 1),
 			new Vector3(0, 0, 1)
 		};
-
 		mesh.triangles = new int[] { 2, 1, 0, 3, 2, 0 };
-
 		mesh.normals = new Vector3[] { Vector3.up, Vector3.up, Vector3.up, Vector3.up };
 
-		MeshFilter.mesh = mesh;
+		MeshFilter.sharedMesh = mesh;
+		
 		SetUVs();
 	}
 
@@ -42,12 +42,12 @@ public class QuadGenerator : MonoBehaviour
 		{
 			offset = new Vector2(Offset.x + transform.position.x, Offset.y + transform.position.z);
 		}
-
-		MeshFilter.mesh.uv = new Vector2[] {
-			new Vector2(offset.x, offset.y),
-			new Vector2(offset.x+ transform.localScale.x * UVScale, offset.y),
-			new Vector2(offset.x+ transform.localScale.x * UVScale, offset.y+ transform.localScale.z * UVScale),
-			new Vector2(offset.x, offset.y + transform.localScale.z * UVScale)
+		
+		MeshFilter.sharedMesh.uv = new Vector2[] {
+			new Vector2(offset.x * UVScale, offset.y * UVScale),
+			new Vector2(offset.x * UVScale + transform.localScale.x * UVScale, offset.y * UVScale),
+			new Vector2(offset.x * UVScale + transform.localScale.x * UVScale, offset.y  * UVScale + transform.localScale.z * UVScale),
+			new Vector2(offset.x * UVScale, offset.y * UVScale + transform.localScale.z * UVScale)
 		};
 	}
 }
