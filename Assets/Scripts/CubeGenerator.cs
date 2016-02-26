@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 
 [ExecuteInEditMode]
-public class CubeGenerator : MonoBehaviour {
+public class CubeGenerator : MonoBehaviour
+{
     public MeshFilter MeshFilter;
 
     public bool FrontCap = true;
@@ -22,12 +23,7 @@ public class CubeGenerator : MonoBehaviour {
     public bool LeftFace = true;
     public bool RightFace = true;
 
-    void Start()
-    {
-
-    }
-
-    void Update()
+    private void Update()
     {
         GenerateMesh();
     }
@@ -76,7 +72,7 @@ public class CubeGenerator : MonoBehaviour {
             vertices.AddRange(new Vector3[] { verts[0], verts[1], verts[2], verts[3] });
             tris.AddRange(new int[] { 0 + vertCount, 3 + vertCount, 2 + vertCount, 2 + vertCount, 1 + vertCount, 0 + vertCount });
             normals.AddRange(new Vector3[] { Vector3.forward, Vector3.forward, Vector3.forward, Vector3.forward });
-            uvs.AddRange(new Vector2[] { new Vector2(x0, y0), new Vector2(x1, y0), new Vector2(x1, y1), new Vector2(x0, y1) });
+            uvs.AddRange(new Vector2[] { new Vector2(-x0, y0), new Vector2(-x1, y0), new Vector2(-x1, y1), new Vector2(-x0, y1) });
             vertCount += 4;
         }
         if (TopFace)
@@ -98,7 +94,7 @@ public class CubeGenerator : MonoBehaviour {
         if (BottomFace)
         {
             vertices.AddRange(new Vector3[] { verts[3], verts[7], verts[6], verts[2] });
-            tris.AddRange(new int[] { 0 + vertCount, 1 + vertCount, 2+vertCount, 2 + vertCount, 3 + vertCount, 0 + vertCount });
+            tris.AddRange(new int[] { 0 + vertCount, 1 + vertCount, 2 + vertCount, 2 + vertCount, 3 + vertCount, 0 + vertCount });
             normals.AddRange(new Vector3[] { Vector3.down, Vector3.down, Vector3.down, Vector3.down });
             uvs.AddRange(new Vector2[] { new Vector2(z0, x0), new Vector2(z1, x0), new Vector2(z1, x1), new Vector2(z0, x1) });
             vertCount += 4;
@@ -108,15 +104,15 @@ public class CubeGenerator : MonoBehaviour {
             vertices.AddRange(new Vector3[] { verts[0], verts[4], verts[7], verts[3] });
             tris.AddRange(new int[] { 0 + vertCount, 1 + vertCount, 2 + vertCount, 2 + vertCount, 3 + vertCount, 0 + vertCount });
             normals.AddRange(new Vector3[] { Vector3.left, Vector3.left, Vector3.left, Vector3.left });
-            uvs.AddRange(new Vector2[] { new Vector2(z0, y0), new Vector2(z1, y0), new Vector2(z1, y1), new Vector2(z0, y1) });
+            uvs.AddRange(new Vector2[] { new Vector2(-z0, y0), new Vector2(-z1, y0), new Vector2(-z1, y1), new Vector2(-z0, y1) });
             vertCount += 4;
         }
         if (RightFace)
         {
-            vertices.AddRange(new Vector3[] { verts[1], verts[2], verts[6], verts[5] });
+            vertices.AddRange(new Vector3[] { verts[5], verts[1], verts[2], verts[6] });
             tris.AddRange(new int[] { 0 + vertCount, 1 + vertCount, 2 + vertCount, 2 + vertCount, 3 + vertCount, 0 + vertCount });
             normals.AddRange(new Vector3[] { Vector3.right, Vector3.right, Vector3.right, Vector3.right });
-            uvs.AddRange(new Vector2[] { new Vector2(y0, z0), new Vector2(y1, z0), new Vector2(y1, z1), new Vector2(y0, z1) });
+            uvs.AddRange(new Vector2[] { new Vector2(-z0, y0), new Vector2(-z1, y0), new Vector2(-z1, y1), new Vector2(-z0, y1) });
             vertCount += 4;
         }
 
