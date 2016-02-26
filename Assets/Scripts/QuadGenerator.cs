@@ -42,20 +42,29 @@ public class QuadGenerator : MonoBehaviour
 		SetUVs();
 	}
 
-	private void SetUVs()
-	{
-		var offset = Offset;
+    private void SetUVs()
+    {
+        var offset = Offset;
 
-		if (RelativeToWorld)
-		{
-			offset = new Vector2(Offset.x + transform.position.x, Offset.y + transform.position.z);
-		}
-		
-		MeshFilter.sharedMesh.uv = new Vector2[] {
-			new Vector2(offset.x * UVScale, offset.y * UVScale),
-			new Vector2(offset.x * UVScale + transform.localScale.x * UVScale, offset.y * UVScale),
-			new Vector2(offset.x * UVScale + transform.localScale.x * UVScale, offset.y  * UVScale + transform.localScale.z * UVScale),
-			new Vector2(offset.x * UVScale, offset.y * UVScale + transform.localScale.z * UVScale)
-		};
-	}
+        if (RelativeToWorld)
+        {
+            offset = new Vector2(Offset.x + transform.position.x, Offset.y + transform.position.z);
+        }
+
+        var yaw = transform.eulerAngles.y;
+        var sinYaw = Mathf.Sin(yaw * Mathf.Deg2Rad);
+        var cosYaw = Mathf.Cos(yaw * Mathf.Deg2Rad);
+
+        var x0 = offset.x * UVScale;
+        var y0 = offset.y * UVScale;
+        var x1 = offset.x * UVScale + transform.localScale.x * UVScale;
+        var y1 = offset.y * UVScale + transform.localScale.z * UVScale;
+
+        MeshFilter.sharedMesh.uv = new Vector2[] {
+            new Vector2(cosYaw*x0 + sinYaw*y0, -sinYaw*x0 + cosYaw*y0), // 0, 0
+            new Vector2(cosYaw*x1 + sinYaw*y0, -sinYaw*x1 + cosYaw*y0), // 1, 0
+            new Vector2(cosYaw*x1 + sinYaw*y1, -sinYaw*x1 + cosYaw*y1), // 1, 1
+            new Vector2(cosYaw*x0 + sinYaw*y1, -sinYaw*x0 + cosYaw*y1)  // 0, 1
+        };
+    }
 }
