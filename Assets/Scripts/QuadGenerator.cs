@@ -48,7 +48,7 @@ public class QuadGenerator : MonoBehaviour
 
         if (RelativeToWorld)
         {
-            offset = new Vector2(Offset.x + transform.position.x, Offset.y + transform.position.z);
+            offset += new Vector2(transform.position.x, transform.position.z);
         }
 
         var yaw = transform.eulerAngles.y;

@@ -16,6 +16,12 @@ public class Wall : MonoBehaviour
 	public bool FrontCap = true;
 
 	public bool BackCap = true;
+
+    public bool RelativeToWorld = false;
+
+    public float UVScale = 1f;
+
+    public Vector3 Offset = Vector3.zero;
 	
 	void Start()
 	{
@@ -81,5 +87,33 @@ public class Wall : MonoBehaviour
 		};
 
 		MeshFilter.sharedMesh = mesh;
-	}
+
+        var offset = Offset;
+
+        if (RelativeToWorld)
+        {
+            offset += transform.position; 
+        }
+
+        var x0 = offset.x * UVScale;
+        var y0 = offset.y * UVScale;
+        var z0 = offset.z * UVScale;
+
+        var x1 = offset.x * UVScale + transform.localScale.x * UVScale;
+        var y1 = offset.y * UVScale + transform.localScale.y * UVScale;
+        var z1 = offset.z * UVScale + transform.localScale.z * UVScale;
+
+        MeshFilter.sharedMesh.uv = new Vector2[]
+        {
+            new Vector2(x0, y0),
+            new Vector2(x1, y0),
+            new Vector2(x1, y1),
+            new Vector2(x1, y0),
+
+            new Vector2(x0, z1),
+            new Vector2(x1, z1),
+            new Vector2(x1, z0),
+            new Vector2(x0, z0)
+        };
+    }
 }
